@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-hw1-service
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+spec:
+  rules:
+    - host: arch.homework
+      http:
+        paths:
+          - path: /otusapp/f1nal/(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: hw1-service
+                port:
+                  number: 8000
+          - path: /(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: hw1-service
+                port:
+                  number: 8000
