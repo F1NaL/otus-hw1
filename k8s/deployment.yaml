@@ -15,7 +15,7 @@ spec:
         app: hw1-app
     spec:
       containers:
-        - image: if1nal/otus-hw1:v0.0.1
+        - image: if1nal/otus-hw1:v0.0.2
           name: hw1-app
           ports:
             - containerPort: 8000

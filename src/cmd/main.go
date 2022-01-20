@@ -4,7 +4,10 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"log"
+	"os"
+	"os/signal"
 	"otus-hw-1/src/httpd"
+	"syscall"
 )
 
 func main() {
@@ -19,4 +22,12 @@ func main() {
 	//ctx := grace.ShutdownContext(context.Background())
 
 	go httpd.HttpServer(logger)
+	waitForKillSignal(logger)
+}
+
+func waitForKillSignal(logger *zap.Logger) {
+	sysKillSignal := make(chan os.Signal, 1)
+	signal.Notify(sysKillSignal, os.Interrupt, syscall.SIGTERM)
+	s := <-sysKillSignal
+	logger.Info("got system signal", zap.String("signal: ", s.String()))
 }

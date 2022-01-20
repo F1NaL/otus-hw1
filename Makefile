@@ -1,7 +1,7 @@
 all: build
 
 DOCKER_IMAGE_NAME=if1nal/otus-hw1
-DOCKER_IMAGE_TAG=v0.0.1
+DOCKER_IMAGE_TAG=v0.0.2
 
 .PHONY: build
 build:

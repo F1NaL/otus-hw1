@@ -27,7 +27,13 @@ func routeLoader() *fasthttprouter.Router {
 	router := fasthttprouter.New()
 	router.GET("/health", handleHealth)
 	router.GET("/ready", handleReady)
+	router.NotFound = handlerNotFound
 	return router
+}
+
+func handlerNotFound(ctx *fasthttp.RequestCtx) {
+	ctx.SetStatusCode(fasthttp.StatusOK)
+	fmt.Fprint(ctx, "{\"handler\": \"404\"}")
 }
 
 func handleHealth(ctx *fasthttp.RequestCtx) {
